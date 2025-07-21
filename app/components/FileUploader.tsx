@@ -28,6 +28,7 @@ const FileUploader = ({ onFileSelect }: FileUploaderProps) => {
         {({ getRootProps, getInputProps, acceptedFiles, fileRejections }) => {
           const file = acceptedFiles[0] || null;
           const fileTooLarge = fileRejections.length > 0;
+
           return (
             <div {...getRootProps()}>
               <input {...getInputProps()} />
