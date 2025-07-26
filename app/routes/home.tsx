@@ -7,7 +7,7 @@ import { useEffect, useState } from "react";
 
 export function meta({}: Route.MetaArgs) {
   return [
-    { title: "Resumind" },
+    { title: "ResuScan" },
     { name: "description", content: "Smart feedback for your dream job!" },
   ];
 }
@@ -42,16 +42,14 @@ export default function Home() {
     loadResumes();
   }, []);
 
-  console.log(resumes);
-
   return (
     <main className="bg-[url('/images/bg-main.svg')] bg-cover">
       <Navbar />
-      <section className="main-section">
-        <div className="page-heading py-16">
+      <section className='main-section'>
+        <div className='page-heading py-16'>
           <h1>Track your Applications and Resume Ratings</h1>
           {resumes.length === 0 ? (
-            <h2 className="text-xl">
+            <h2 className='text-xl'>
               No resumes found. Upload your resume to get started.
             </h2>
           ) : (
@@ -60,13 +58,13 @@ export default function Home() {
         </div>
 
         {loadingResumes && (
-          <div className="flex flex-col items-center justify-center">
-            <img src="/images/resume-scan-2.gif" className="w-[200px]" />
+          <div className='flex flex-col items-center justify-center'>
+            <img src='/images/resume-scan-2.gif' className='w-[200px]' />
           </div>
         )}
 
         {!loadingResumes && resumes.length > 0 && (
-          <div className="resumes-section">
+          <div className='resumes-section'>
             {resumes.map((resume) => (
               <ResumeCard key={resume.id} resume={resume} />
             ))}
@@ -74,10 +72,10 @@ export default function Home() {
         )}
 
         {!loadingResumes && resumes.length === 0 && (
-          <div className="flex flex-col items-center justify-center gap-4">
+          <div className='flex flex-col items-center justify-center gap-4'>
             <Link
-              to="/upload"
-              className="primary-button w-fit text-xl font-semibold"
+              to='/upload'
+              className='primary-button w-fit text-xl font-semibold'
             >
               Upload Resume
             </Link>
