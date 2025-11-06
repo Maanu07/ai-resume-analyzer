@@ -6,7 +6,9 @@
     "build": "react-router build",
     "dev": "react-router dev",
     "start": "react-router-serve ./build/server/index.js",
-    "typecheck": "react-router typegen && tsc"
+    "typecheck": "react-router typegen && tsc",
+    "prettier:check":"prettier --check app/**/*.{js,jsx,ts,tsx}",
+    "prettier:fix":"prettier --write app/**/*.{js,jsx,ts,tsx}"
   },
   "dependencies": {
     "@react-router/node": "^7.7.0",
@@ -27,6 +29,7 @@
     "@types/node": "^20",
     "@types/react": "^19.1.2",
     "@types/react-dom": "^19.1.2",
+    "prettier": "3.6.2",
     "tailwindcss": "^4.1.4",
     "tw-animate-css": "^1.3.5",
     "typescript": "^5.8.3",

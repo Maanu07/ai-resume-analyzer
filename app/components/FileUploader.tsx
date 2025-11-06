@@ -1,20 +1,20 @@
-import { useState } from "react";
-import Dropzone from "react-dropzone"; // third party library for drag and drop file upload
-import { formatFileSize } from "~/lib/utils";
+import { useState } from 'react'
+import Dropzone from 'react-dropzone' // third party library for drag and drop file upload
+import { formatFileSize } from '~/lib/utils'
 
 type FileUploaderProps = {
-  onFileSelect?: (file: File | null) => void;
-};
+  onFileSelect?: (file: File | null) => void
+}
 
 const FileUploader = ({ onFileSelect }: FileUploaderProps) => {
-  const [key, setKey] = useState(0);
+  const [key, setKey] = useState(0)
 
   function handleDrop(acceptedFiles: File[]) {
-    const file = acceptedFiles[0] || null;
-    onFileSelect?.(file);
+    const file = acceptedFiles[0] || null
+    onFileSelect?.(file)
   }
 
-  const maxFileSize = 20 * 1024 * 1024; // 20MB in bytes
+  const maxFileSize = 20 * 1024 * 1024 // 20MB in bytes
 
   return (
     <div className="w-full gradient-border">
@@ -22,12 +22,12 @@ const FileUploader = ({ onFileSelect }: FileUploaderProps) => {
         key={key}
         onDrop={handleDrop}
         multiple={false}
-        accept={{ "application/pdf": [".pdf"] }}
+        accept={{ 'application/pdf': ['.pdf'] }}
         maxSize={maxFileSize}
       >
         {({ getRootProps, getInputProps, acceptedFiles, fileRejections }) => {
-          const file = acceptedFiles[0] || null;
-          const fileTooLarge = fileRejections.length > 0;
+          const file = acceptedFiles[0] || null
+          const fileTooLarge = fileRejections.length > 0
 
           return (
             <div {...getRootProps()}>
@@ -54,8 +54,8 @@ const FileUploader = ({ onFileSelect }: FileUploaderProps) => {
                       type="button"
                       className="p-2 cursor-pointer"
                       onClick={(e) => {
-                        onFileSelect?.(null);
-                        setKey(key + 1);  // update the key to re-render the component Dropzone
+                        onFileSelect?.(null)
+                        setKey(key + 1) // update the key to re-render the component Dropzone
                       }}
                     >
                       <img
@@ -83,19 +83,17 @@ const FileUploader = ({ onFileSelect }: FileUploaderProps) => {
                       PDF (max {formatFileSize(maxFileSize)})
                     </p>
                     {fileTooLarge && (
-                      <p className="text-sm text-red-500">
-                        File is too large
-                      </p>
+                      <p className="text-sm text-red-500">File is too large</p>
                     )}
                   </div>
                 )}
               </div>
             </div>
-          );
+          )
         }}
       </Dropzone>
     </div>
-  );
-};
+  )
+}
 
-export default FileUploader;
+export default FileUploader

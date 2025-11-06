@@ -1,28 +1,28 @@
-import { Link } from "react-router";
-import ScoreCircle from "./ScoreCircle";
-import { usePuterStore } from "~/lib/puter";
-import { useEffect, useState } from "react";
-import ImageSkeleton from "./ImageSkeleton";
+import { Link } from 'react-router'
+import ScoreCircle from './ScoreCircle'
+import { usePuterStore } from '~/lib/puter'
+import { useEffect, useState } from 'react'
+import ImageSkeleton from './ImageSkeleton'
 
 type ResumeCardProps = {
-  resume: Resume;
-};
+  resume: Resume
+}
 
 const ResumeCard = ({ resume }: ResumeCardProps) => {
-  const { companyName, jobTitle, imagePath, id, feedback } = resume;
-  const { fs } = usePuterStore();
-  const [resumeUrl, setResumeUrl] = useState("");
+  const { companyName, jobTitle, imagePath, id, feedback } = resume
+  const { fs } = usePuterStore()
+  const [resumeUrl, setResumeUrl] = useState('')
 
   useEffect(() => {
     const loadImg = async () => {
-      const blob = await fs.read(imagePath); // read file from cloud storage
-      if (!blob) return;
-      let url = URL.createObjectURL(blob); // create object url from blob
-      setResumeUrl(url);
-    };
+      const blob = await fs.read(imagePath) // read file from cloud storage
+      if (!blob) return
+      let url = URL.createObjectURL(blob) // create object url from blob
+      setResumeUrl(url)
+    }
 
-    loadImg();
-  }, [imagePath]);
+    loadImg()
+  }, [imagePath])
 
   return (
     <Link
@@ -56,10 +56,10 @@ const ResumeCard = ({ resume }: ResumeCardProps) => {
           </div>
         </div>
       ) : (
-        <ImageSkeleton/>
+        <ImageSkeleton />
       )}
     </Link>
-  );
-};
+  )
+}
 
-export default ResumeCard;
+export default ResumeCard

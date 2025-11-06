@@ -1,55 +1,55 @@
-import type { ReactNode } from "react";
-import React, { createContext, useContext, useState } from "react";
-import { cn } from "~/lib/utils";
+import type { ReactNode } from 'react'
+import React, { createContext, useContext, useState } from 'react'
+import { cn } from '~/lib/utils'
 
 interface AccordionContextType {
-  activeItems: string[];
-  toggleItem: (id: string) => void;
-  isItemActive: (id: string) => boolean;
+  activeItems: string[]
+  toggleItem: (id: string) => void
+  isItemActive: (id: string) => boolean
 }
 
 const AccordionContext = createContext<AccordionContextType | undefined>(
   undefined
-);
+)
 
 const useAccordion = () => {
-  const context = useContext(AccordionContext);
+  const context = useContext(AccordionContext)
   if (!context) {
-    throw new Error("Accordion components must be used within an Accordion");
+    throw new Error('Accordion components must be used within an Accordion')
   }
-  return context;
-};
+  return context
+}
 
 interface AccordionProps {
-  children: ReactNode;
-  defaultOpen?: string;
-  allowMultiple?: boolean;
-  className?: string;
+  children: ReactNode
+  defaultOpen?: string
+  allowMultiple?: boolean
+  className?: string
 }
 
 export const Accordion: React.FC<AccordionProps> = ({
   children,
   defaultOpen,
   allowMultiple = false,
-  className = "",
+  className = '',
 }) => {
   const [activeItems, setActiveItems] = useState<string[]>(
     defaultOpen ? [defaultOpen] : []
-  );
+  )
 
   const toggleItem = (id: string) => {
     setActiveItems((prev) => {
       if (allowMultiple) {
         return prev.includes(id)
           ? prev.filter((item) => item !== id)
-          : [...prev, id];
+          : [...prev, id]
       } else {
-        return prev.includes(id) ? [] : [id];
+        return prev.includes(id) ? [] : [id]
       }
-    });
-  };
+    })
+  }
 
-  const isItemActive = (id: string) => activeItems.includes(id);
+  const isItemActive = (id: string) => activeItems.includes(id)
 
   return (
     <AccordionContext.Provider
@@ -57,49 +57,49 @@ export const Accordion: React.FC<AccordionProps> = ({
     >
       <div className={`space-y-2 ${className}`}>{children}</div>
     </AccordionContext.Provider>
-  );
-};
+  )
+}
 
 interface AccordionItemProps {
-  id: string;
-  children: ReactNode;
-  className?: string;
+  id: string
+  children: ReactNode
+  className?: string
 }
 
 export const AccordionItem: React.FC<AccordionItemProps> = ({
   id,
   children,
-  className = "",
+  className = '',
 }) => {
   return (
     <div className={`overflow-hidden border-b border-gray-200 ${className}`}>
       {children}
     </div>
-  );
-};
+  )
+}
 
 interface AccordionHeaderProps {
-  itemId: string;
-  children: ReactNode;
-  className?: string;
-  icon?: ReactNode;
-  iconPosition?: "left" | "right";
+  itemId: string
+  children: ReactNode
+  className?: string
+  icon?: ReactNode
+  iconPosition?: 'left' | 'right'
 }
 
 export const AccordionHeader: React.FC<AccordionHeaderProps> = ({
   itemId,
   children,
-  className = "",
+  className = '',
   icon,
-  iconPosition = "right",
+  iconPosition = 'right',
 }) => {
-  const { toggleItem, isItemActive } = useAccordion();
-  const isActive = isItemActive(itemId);
+  const { toggleItem, isItemActive } = useAccordion()
+  const isActive = isItemActive(itemId)
 
   const defaultIcon = (
     <svg
-      className={cn("w-5 h-5 transition-transform duration-200", {
-        "rotate-180": isActive,
+      className={cn('w-5 h-5 transition-transform duration-200', {
+        'rotate-180': isActive,
       })}
       fill="none"
       stroke="#98A2B3"
@@ -113,11 +113,11 @@ export const AccordionHeader: React.FC<AccordionHeaderProps> = ({
         d="M19 9l-7 7-7-7"
       />
     </svg>
-  );
+  )
 
   const handleClick = () => {
-    toggleItem(itemId);
-  };
+    toggleItem(itemId)
+  }
 
   return (
     <button
@@ -130,37 +130,37 @@ export const AccordionHeader: React.FC<AccordionHeaderProps> = ({
       `}
     >
       <div className="flex items-center space-x-3">
-        {iconPosition === "left" && (icon || defaultIcon)}
+        {iconPosition === 'left' && (icon || defaultIcon)}
         <div className="flex-1">{children}</div>
       </div>
-      {iconPosition === "right" && (icon || defaultIcon)}
+      {iconPosition === 'right' && (icon || defaultIcon)}
     </button>
-  );
-};
+  )
+}
 
 interface AccordionContentProps {
-  itemId: string;
-  children: ReactNode;
-  className?: string;
+  itemId: string
+  children: ReactNode
+  className?: string
 }
 
 export const AccordionContent: React.FC<AccordionContentProps> = ({
   itemId,
   children,
-  className = "",
+  className = '',
 }) => {
-  const { isItemActive } = useAccordion();
-  const isActive = isItemActive(itemId);
+  const { isItemActive } = useAccordion()
+  const isActive = isItemActive(itemId)
 
   return (
     <div
       className={`
         overflow-hidden transition-all duration-300 ease-in-out
-        ${isActive ? "max-h-fit opacity-100" : "max-h-0 opacity-0"}
+        ${isActive ? 'max-h-fit opacity-100' : 'max-h-0 opacity-0'}
         ${className}
       `}
     >
       <div className="px-4 py-3 ">{children}</div>
     </div>
-  );
-};
+  )
+}

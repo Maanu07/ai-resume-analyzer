@@ -16,7 +16,7 @@ const ImageSkeleton = () => {
         </svg>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default ImageSkeleton;
+export default ImageSkeleton
